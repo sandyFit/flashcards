@@ -43,28 +43,39 @@ const questions = [
 ];
 
 const Flashcards = () => {
+    // useState hook to manage the state of the selected question ID.
+    // Initially, no question is selected, so selectedId is null.
+    const [selectedId, setSelectedId] = useState(null);
 
-    const [selectedId, setSelectedId] = useState(false);
-
+    // Define a function to handle clicking on a flashcard.
     const handleClick = (id) => {
+        // Toggle the selected state: if the clicked ID is already selected,
+        // deselect it (set to null); otherwise, set it as the selectedId.
         setSelectedId(id !== selectedId ? id : null);
-    }
+    };
 
+    // Render the flashcards.
     return (
         <div className='flashcards'>
             {questions.map(question => (
+                // For each question, create a div that can be clicked.
+                // The div is given a key for React to manage the list efficiently.
+                // The className changes based on whether the question is selected.
                 <div
                     key={question.id}
                     onClick={() => handleClick(question.id)}
                     className={question.id === selectedId ? 'selected' : ''}
                 >
+                    {/* The content changes based on whether the question is selected:
+                    if selected, show the answer; otherwise, show the question. */}
                     <p>{ question.id === selectedId ? question.answer : question.question}</p>
                 </div>
             ))}
             
         </div>
+
     )
 
 }
 
-export default App
+export default App;
